@@ -7,11 +7,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.10'
-      - name: Install dependencies
+
+      - name: Install test runner
         run: pip install pytest
+
+      - name: Show repo layout (debug)
+        run: |
+          echo "GITHUB_WORKSPACE=$GITHUB_WORKSPACE"
+          ls -la "$GITHUB_WORKSPACE"
+          ls -la "$GITHUB_WORKSPACE"/* || true
+          echo "PWD=$(pwd)"
+          ls -la
+
+      # הוספה פשוטה של שורש הריפו ל-PYTHONPATH כך שייבוא כמו from src.hello ישתן תקין
+      - name: Add repo root to PYTHONPATH
+        run: echo "PYTHONPATH=${GITHUB_WORKSPACE}" >> $GITHUB_ENV
+
       - name: Run tests
-        run: pytest
+        run: pytest -q
