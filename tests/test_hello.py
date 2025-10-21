@@ -1,4 +1,4 @@
-from src/hello import hello
+from src.hello import hello
 
 def test_hello():
     assert hello() == "Hello, DevOps"
