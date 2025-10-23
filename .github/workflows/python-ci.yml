@@ -30,8 +30,8 @@ jobs:
       - name: Run tests
         run: pytest -q
 
-      # - name: Lint code
-      #   run: pip install flake8 && flake8 src tests
+      - name: Lint code
+        run: pip install flake8 && flake8 src tests
 
       # - name: Success message
       #   if: success()
