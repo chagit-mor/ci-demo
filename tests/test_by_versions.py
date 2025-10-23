@@ -6,4 +6,3 @@ def test_greet(lang):
         case "en":
             return "Hello"
     return None
-
