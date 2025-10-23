@@ -5,14 +5,17 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ 3.8, 3.9, 3.10 ]
     steps:
       - uses: actions/checkout@v2
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.10'
-
+#          python-version: '3.10'
+          python-version:'${{ matrix.python-version }}'
       - name: Install test runner
         run: pip install pytest
 
@@ -33,5 +36,9 @@ jobs:
 
       - name: Lint code
         run: pip install flake8 && flake8 src tests
+
+      - name: Success message
+        if: success()
+        run: echo "All tests passed!"
 
 
