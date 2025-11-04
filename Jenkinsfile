@@ -10,13 +10,13 @@ pipeline {
 
     stage('Install dependencies') {
       steps {
-        sh 'pip install pytest'
+        bat 'pip install pytest'
       }
     }
 
     stage('Run tests') {
       steps {
-        sh 'pytest --junitxml=results.xml'
+        bat 'pytest --junitxml=results.xml'
       }
       post {
         always {
