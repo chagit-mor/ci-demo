@@ -22,7 +22,7 @@ pipeline {
     stage('Build') {
       steps {
         echo "🏗️ בונים את האפליקציה..."
-        sh 'make build'
+        bat 'make build'
         stash includes: 'build/**', name: 'built-app'
       }
     }
