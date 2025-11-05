@@ -64,13 +64,13 @@ pipeline {
 	  parallel {
 		  stage('Math Tests') {
 			  steps {
-				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello --junitxml=results.xml'
+				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello.py --junitxml=results.xml'
 			  }
 		  }
 
 		  stage('String Tests') {
 			  steps {
-				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello2 --junitxml=results.xml'
+				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello2.py --junitxml=results.xml'
 			  }
 	  	  }
 	  }
