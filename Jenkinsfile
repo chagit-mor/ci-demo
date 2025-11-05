@@ -40,14 +40,36 @@ pipeline {
 
     stage('Run tests') {
       steps {
+	    echo "🧪 מריצים בדיקות יחידה..."
+        unstash 'built-app'
         bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest --junitxml=results.xml'
       }
       post {
         always {
+		  echo "📊 מציגים תוצאות בדיקות..."
           junit 'results.xml'
           archiveArtifacts artifacts: 'results.xml'
         }
       }
+    }
+    stage('Deploy (Fake)') {
+      when { branch 'main' }
+      steps {
+        echo "🚀 נפריס גרסה ניסיונית לסביבת ${APP_ENV}"
+        sh 'make deploy'
+      }
+    }
+
+  }
+  post {
+    success {
+      echo "🎉 כל השלבים עברו בהצלחה!"
+    }
+    failure {
+      echo "❌ יש בעיה באחד השלבים, נא לבדוק את הלוג!"
+    }
+    always {
+      echo "🧹 מנקים את סביבת העבודה..."
     }
   }
 }
