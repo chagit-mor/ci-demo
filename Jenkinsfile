@@ -65,8 +65,8 @@ pipeline {
       when  { expression {env.GIT_BRANCH == 'origin/main' } }
       steps {
 	    withCredentials([
-		  usernamePassword(credentialsId: 'myFirstUser', usernameVariable: 'USER', passwordVariable: 'PASS'),
-		  string(credentialsId: 'aabbcc', variable: 'TEXT')
+		  usernamePassword(credentialsId: '213390479', usernameVariable: 'USER', passwordVariable: 'PASS'),
+		  string(credentialsId: '123', variable: 'TEXT')
 		]) {
 		  bat '''
 			echo  Deploying as %USER% %PASS%
