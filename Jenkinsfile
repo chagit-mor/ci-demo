@@ -48,8 +48,6 @@ pipeline {
     }
 
     stage('Run tests') {
-	  unstash 'built-app'
-
       steps {
 	    echo "Running unit tests..."
         bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest --junitxml=results.xml'
@@ -98,6 +96,8 @@ pipeline {
 		}
         echo "deploy try version to ${APP_ENV}"
         bat 'make deploy'
+	    unstash 'built-app'
+
       }
     }
 
