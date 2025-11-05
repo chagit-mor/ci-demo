@@ -3,6 +3,8 @@ pipeline {
 
   environment {
     PATH = "C:\\Program Files (x86)\\GnuWin32\\bin;${env.PATH}"
+    DEPLOY_USER = credentials('myFirstUser')
+    TEXT = credentials('aabbcc')
     APP_ENV = "staging"
     TEST_RESULTS = "results/results.xml"
   }
@@ -62,6 +64,12 @@ pipeline {
     stage('Deploy (Fake)') {
       when  { expression {env.GIT_BRANCH == 'origin/main' } }
       steps {
+	    echo "TEXT: ${TEXT}"
+	    echo "DEPLOY_USER: ${DEPLOY_USER}"
+	    echo "DEPLOY_USER: ${DEPLOY_USER_USR}"
+	    echo "DEPLOY_USER: ${DEPLOY_USER_PSW_}"
+	    echo "TEXT: ${TEXT_PSW}"
+	    echo "TEXT: ${TEXT_USR}"
         echo "deploy try version to ${APP_ENV}"
         bat 'make deploy'
       }
