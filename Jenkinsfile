@@ -2,6 +2,7 @@ pipeline {
   agent any
 
   environment {
+    PATH = "C:\\Program Files (x86)\\GnuWin32\\bin;${env.PATH}"
     APP_ENV = "staging"
     TEST_RESULTS = "results/results.xml"
   }
