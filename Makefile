@@ -1,7 +1,8 @@
 build:
 	@echo "Building application..."
-	mkdir -p build
-	cp src/hello.py build/
+	if not exist build mkdir build
+	copy src\hello.py build\
+
 
 test:
 	@echo "Running tests..."
