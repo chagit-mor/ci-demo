@@ -29,7 +29,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        echo "🏗️ בונים את האפליקציה..."
+        echo "build the application"
         bat 'make -B build'
         stash includes: 'build/**', name: 'built-app'
       }
@@ -61,6 +61,27 @@ pipeline {
         }
       }
     }
+    stage('Parallel Tests') {
+	  parallel {
+		  stage('Math Tests') {
+			  steps {
+				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello --junitxml=results.xml'
+			  }
+		  }
+	  }
+		  stage('String Tests') {
+			  steps {
+				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello2 --junitxml=results.xml'
+			  }
+	  	  }
+	  }
+	  post {
+		always {
+		  junit 'results/*.xml'
+		}
+	  }
+	}
+
     stage('Deploy (Fake)') {
       when  { expression {env.GIT_BRANCH == 'origin/main' } }
       steps {
@@ -74,12 +95,6 @@ pipeline {
 			echo Password hidden: ********
 		  '''
 		}
-	    //echo "TEXT: ${TEXT}"
-	    //echo "DEPLOY_USER: ${DEPLOY_USER}"
-	    //echo "DEPLOY_USER: ${DEPLOY_USER_USR}"
-	    //echo "DEPLOY_USER: ${DEPLOY_USER_PSW_}"
-	    //echo "TEXT: ${TEXT_PSW}"
-	    //echo "TEXT: ${TEXT_USR}"
         echo "deploy try version to ${APP_ENV}"
         bat 'make deploy'
       }
@@ -97,4 +112,4 @@ pipeline {
       echo "Cleaning the work environment..."
     }
   }
-}
+
