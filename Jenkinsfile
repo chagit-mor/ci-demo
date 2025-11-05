@@ -18,6 +18,11 @@ pipeline {
         checkout scm
       }
     }
+	stage('Check PATH') {
+	  steps {
+		bat 'echo %PATH%'
+	  }
+	}
 
     stage('Build') {
       steps {
