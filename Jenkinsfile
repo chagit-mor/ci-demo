@@ -15,7 +15,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-	    echo "📥 שלב ראשון - מורידים את הקוד מה־Git"
+	    echo "Step One - Download the code from Git"
         checkout scm
       }
     }
@@ -32,6 +32,13 @@ pipeline {
         stash includes: 'build/**', name: 'built-app'
       }
     }
+    stage('Debug Branch') {
+	  steps {
+		echo "Current branch: ${env.BRANCH_NAME}"
+		echo "GIT_BRANCH: ${env.GIT_BRANCH}"
+	  }
+	}
+
     stage('Install dependencies') {
       steps {
         bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pip install pytest'
@@ -40,13 +47,13 @@ pipeline {
 
     stage('Run tests') {
       steps {
-	    echo "🧪 מריצים בדיקות יחידה..."
+	    echo "Running unit tests..."
         unstash 'built-app'
         bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest --junitxml=results.xml'
       }
       post {
         always {
-		  echo "📊 מציגים תוצאות בדיקות..."
+		  echo "Showing test results..."
           junit 'results.xml'
           archiveArtifacts artifacts: 'results.xml'
         }
