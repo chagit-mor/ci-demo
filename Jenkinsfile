@@ -48,9 +48,10 @@ pipeline {
     }
 
     stage('Run tests') {
+	  unstash 'built-app'
+
       steps {
 	    echo "Running unit tests..."
-        unstash 'built-app'
         bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest --junitxml=results.xml'
       }
       post {
@@ -68,7 +69,7 @@ pipeline {
 				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello --junitxml=results.xml'
 			  }
 		  }
-	  }
+
 		  stage('String Tests') {
 			  steps {
 				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello2 --junitxml=results.xml'
@@ -101,6 +102,7 @@ pipeline {
     }
 
   }
+
   post {
     success {
       echo "All steps passed successfully.!"
@@ -113,3 +115,4 @@ pipeline {
     }
   }
 
+}
