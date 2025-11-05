@@ -63,7 +63,7 @@ pipeline {
       when  { expression {env.GIT_BRANCH == 'origin/main' } }
       steps {
         echo "deploy try version to ${APP_ENV}"
-        sh 'make deploy'
+        bat 'make deploy'
       }
     }
 
