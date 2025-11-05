@@ -55,7 +55,7 @@ pipeline {
     stage('Deploy (Fake)') {
       when { branch 'main' }
       steps {
-        echo "🚀 נפריס גרסה ניסיונית לסביבת ${APP_ENV}"
+        echo "deploy try version to ${APP_ENV}"
         sh 'make deploy'
       }
     }
@@ -63,13 +63,13 @@ pipeline {
   }
   post {
     success {
-      echo "🎉 כל השלבים עברו בהצלחה!"
+      echo "All steps passed successfully.!"
     }
     failure {
-      echo "❌ יש בעיה באחד השלבים, נא לבדוק את הלוג!"
+      echo "There is a problem with one of the steps, please check the log.!"
     }
     always {
-      echo "🧹 מנקים את סביבת העבודה..."
+      echo "Cleaning the work environment..."
     }
   }
 }
