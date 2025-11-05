@@ -60,7 +60,7 @@ pipeline {
       }
     }
     stage('Deploy (Fake)') {
-      when { branch 'main' }
+      when { when { expression {env.GIT_BRANCH == 'origin/main' } }
       steps {
         echo "deploy try version to ${APP_ENV}"
         sh 'make deploy'
