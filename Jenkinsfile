@@ -82,6 +82,8 @@ pipeline {
 	  post {
 		always {
 		  junit 'results/*.xml'
+		  archiveArtifacts artifacts: 'results/*.xml'
+
 		}
 	  }
 	}
