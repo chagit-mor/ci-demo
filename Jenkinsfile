@@ -60,10 +60,12 @@ pipeline {
         }
       }
     }
-	stage('Parallel Tests') {
+    stage('Prepare Test Results Folder') {
 	  steps {
-		bat 'mkdir results'
+	  	bat 'mkdir results'
 	  }
+	}
+	stage('Parallel Tests') {
 	  parallel {
 		stage('Math Tests') {
 		  steps {
