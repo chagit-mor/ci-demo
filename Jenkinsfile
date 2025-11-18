@@ -76,7 +76,7 @@ pipeline {
 	  }
 	  post {
 		always {
-		  junit 'results/*.xml'
+		  junit 'results.xml'
 		}
 	  }
 	}
