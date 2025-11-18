@@ -47,24 +47,17 @@ pipeline {
       }
     }
 
-    stage('Run tests') {
-      steps {
-	    echo "Running unit tests..."
-        bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest --junitxml=results.xml'
-      }
-      post {
-        always {
-		  echo "Showing test results..."
-          junit 'results.xml'
-          archiveArtifacts artifacts: 'results.xml'
-        }
-      }
-    }
     stage('Prepare Test Results Folder') {
 	  steps {
 	  	bat 'mkdir results'
 	  }
 	}
+    stage('Run tests') {
+      steps {
+	    echo "Running unit tests..."
+        bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest --junitxml=results/main.xml'
+      }
+    }
 	stage('Parallel Tests') {
 	  parallel {
 		stage('Math Tests') {
