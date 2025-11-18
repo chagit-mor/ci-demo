@@ -60,19 +60,22 @@ pipeline {
         }
       }
     }
-    stage('Parallel Tests') {
+	stage('Parallel Tests') {
+	  steps {
+		bat 'mkdir results'
+	  }
 	  parallel {
-		  stage('Math Tests') {
-			  steps {
-				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello.py --junitxml=results.xml'
-			  }
+		stage('Math Tests') {
+		  steps {
+			bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello.py --junitxml=results/math.xml'
 		  }
+		}
 
-		  stage('String Tests') {
-			  steps {
-				  bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello2.py --junitxml=results.xml'
-			  }
-	  	  }
+		stage('String Tests') {
+		  steps {
+			bat '"C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python313\\python.exe" -m pytest tests/test_hello2.py --junitxml=results/string.xml'
+		  }
+		}
 	  }
 	  post {
 		always {
@@ -80,6 +83,7 @@ pipeline {
 		}
 	  }
 	}
+
 
     stage('Deploy (Fake)') {
       when  { expression {env.GIT_BRANCH == 'origin/main' } }
