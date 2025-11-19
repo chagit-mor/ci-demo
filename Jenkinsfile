@@ -6,7 +6,7 @@ pipeline {
     //DEPLOY_USER = credentials('myFirstUser')
     //TEXT = credentials('aabbcc')
     APP_ENV = "staging"
-    TEST_RESULTS = "results/results.xml"
+    //TEST_RESULTS = "results/results.xml"
   }
 
   options {
