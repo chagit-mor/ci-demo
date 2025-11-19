@@ -49,7 +49,13 @@ pipeline {
 
     stage('Prepare Test Results Folder') {
 	  steps {
-	  	bat 'mkdir results'
+	  	//bat 'mkdir results'
+		bat '''
+		if not exist results (
+			mkdir results
+		)
+		'''
+
 	  }
 	}
     stage('Run tests') {
